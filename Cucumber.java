@@ -3,9 +3,8 @@
  *
  * [ Cucumber.java ]
  *
- * COPYRIGHT (c) 1999 - 2013 by Merchant Warehouse, Boston, MA USA. All rights
- * reserved. This material contains unpublished, copyrighted work including
- * confidential and proprietary information of Merchant Warehouse.
+ * COPYRIGHT (c) 1999 - 2013 by Merchant Warehouse, Boston, MA USA. All rights reserved. This material contains
+ * unpublished, copyrighted work including confidential and proprietary information of Merchant Warehouse.
  *
  *******************************************************************************
  */
@@ -41,19 +40,16 @@ import org.junit.runners.ParentRunner;
 import org.junit.runners.model.InitializationError;
 
 /**
- * Classes annotated with {@code @RunWith(Cucumber.class)} will run a Cucumber
- * Feature.
+ * Classes annotated with {@code @RunWith(Cucumber.class)} will run a Cucumber Feature.
  *
  * <p>
- * This class is meant as a drop-in replacement for the official Cucumber Junit
- * class. This class differs from its upstream cousin in the following
- * respects:</p>
+ * This class is meant as a drop-in replacement for the official Cucumber Junit class. This class differs from its
+ * upstream cousin in the following respects:</p>
  *
  * <ul>
  * <li>It allows for co-mingling of JUnit and Cucumber features. Junit's
  *
- * @org.junit.BeforeClass and @org.junit.AfterClass annotations will work just
- * fine.
+ * @org.junit.BeforeClass and @org.junit.AfterClass annotations will work just fine.
  * <li>No more useless empty Java files that only set up a Cucumber JUnit runner
  * <li>It prevents feature steps from "bleeding over" into other files
  * <li>Multiple Java files in the same package can implement the same steps
@@ -63,14 +59,11 @@ import org.junit.runners.model.InitializationError;
  * All other features should work as expected.</p>
  *
  * <p/>
- * This class relies heavily on conventions. Cucumber will look for a
- * {@code .feature} file on the classpath, using the same name as the annotated
- * class ({@code .java} substituted by {@code .feature}). Make sure that your
- * feature file and your annotated Java file have the same name, as this class
- * will tie them together.
+ * This class relies heavily on conventions. Cucumber will look for a {@code .feature} file on the classpath, using the
+ * same name as the annotated class ({@code .java} substituted by {@code .feature}). Make sure that your feature file
+ * and your annotated Java file have the same name, as this class will tie them together.
  * <p/>
- * Additional hints can be given to Cucumber by annotating the class with
- * {@link Options}.
+ * Additional hints can be given to Cucumber by annotating the class with {@link Options}.
  *
  * @see Options
  */
@@ -106,13 +99,11 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
         bindClassToFeatureFile(runtimeOptions, clazz);
 
         ResourceLoader resourceLoader = new MultiLoader(clazz, classLoader);
-        ClassFinder classFinder = new ResourceLoaderClassFinder(resourceLoader,
-                classLoader);
+        ClassFinder classFinder = new ResourceLoaderClassFinder(resourceLoader, classLoader);
         runtime = new Runtime(resourceLoader, classFinder, classLoader,
                 runtimeOptions);
 
-        jUnitReporter = new JUnitReporter(runtimeOptions.reporter(classLoader),
-                runtimeOptions.formatter(classLoader),
+        jUnitReporter = new JUnitReporter(runtimeOptions.reporter(classLoader), runtimeOptions.formatter(classLoader),
                 runtimeOptions.isStrict());
         addChildren(runtimeOptions.cucumberFeatures(resourceLoader));
     }
@@ -150,14 +141,13 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
     private void addChildren(final List<CucumberFeature> cucumberFeatures)
             throws InitializationError {
         for (CucumberFeature cucumberFeature : cucumberFeatures) {
-            children.add(new FeatureRunner(cucumberFeature, runtime,
-                    jUnitReporter));
+            children.add(new FeatureRunner(cucumberFeature, runtime, jUnitReporter));
         }
     }
 
     /**
-     * Removes all duplicate classpaths from our "glue". This is a hack that
-     * allows us to have a step definitions class that extends a parent class
+     * Removes all duplicate classpaths from our "glue". This is a hack that allows us to have a step definitions class
+     * that extends a parent class
      *
      * @param runtimeOptions the Cucumber RuntimeOptions we're modifying
      */
@@ -176,8 +166,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
     /**
      * Binds the Java Class and Gherkin Feature File together.
      *
-     * This enforces a convention of Scenario.class and Scenario.feature being
-     * linked together.
+     * This enforces a convention of Scenario.class and Scenario.feature being linked together.
      *
      * @param runtimeOptions the Cucumber RuntimeOptions we're modifying
      * @param clazz the class that we've annotated with JUnit @RunWith
@@ -192,8 +181,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
         if (featureFileURL == null) {
             // this should be an unchecked exception because there's nothing the
             // caller can do to safely recover from this error
-            throw new RuntimeException("Could not find Gherkin feature file: "
-                    + featureFileName);
+            throw new RuntimeException("Could not find Gherkin feature file: " + featureFileName);
         } else {
             runtimeOptions.getFeaturePaths().add(featureFileURL.getFile());
         }
@@ -202,9 +190,8 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
     /**
      * Creates new Cucumber RuntimeOptions based on this class's annotations.
      *
-     * Enforces MW's policy that we always emit HTML and JSON reports, in
-     * addition to the JUnit reports. This is for debugging purposes and for
-     * integration into our Jenkins CI environment.
+     * Enforces MW's policy that we always emit HTML and JSON reports, in addition to the JUnit reports. This is for
+     * debugging purposes and for integration into our Jenkins CI environment.
      *
      * @param clazz the class you've annotated
      * @return a new RuntimeOptions
@@ -229,8 +216,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             // handle to the buildArgsFromOptions() method, and append our
             // default formatters to the list.
             Method m;
-            m = runtimeOptionsFactory.getClass()
-                    .getDeclaredMethod("buildArgsFromOptions");
+            m = runtimeOptionsFactory.getClass().getDeclaredMethod("buildArgsFromOptions");
             m.setAccessible(true); // voids the warranty...
             List<String> args = (List<String>) m.invoke(runtimeOptionsFactory);
 
@@ -238,8 +224,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             // and JSON reports
             applyDefaultFormatting(clazz, args);
 
-            return new RuntimeOptions(new Env("cucumber-jvm"),
-                    args.toArray(new String[]{}));
+            return new RuntimeOptions(new Env("cucumber-jvm"), args.toArray(new String[]{}));
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException ex) {
             Logger.getLogger(Cucumber.class.getName()).log(Level.SEVERE, null, ex);
             throw new InitializationError(ex);
@@ -247,14 +232,11 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
     }
 
     /**
-     * all merchant warehouse cucumber tests will want (at least) HTML and JSON
-     * reports
+     * all merchant warehouse cucumber tests will want (at least) HTML and JSON reports
      *
      * <p>
-     * enforce a convention that the data ends up in a folder named
-     * "target/cucumber-reports/$classname". this obviates having to write a lot
-     * of boilerplate @Cucumber.Options(format=...) as part of every Stepdefs
-     * class</p>
+     * enforce a convention that the data ends up in a folder named "target/cucumber-reports/$classname". this obviates
+     * having to write a lot of boilerplate @Cucumber.Options(format=...) as part of every Stepdefs class</p>
      *
      * @param clazz the class with the JUnit @RunWith annotation
      * @param args the list of command line arguments that configures Cucumber
@@ -264,18 +246,15 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
         String className = clazz.getName();
 
         args.add("--format");
-        args.add(String.format("html:target/cucumber-reports/%1$s/html",
-                className));
+        args.add(String.format("html:target/cucumber-reports/%1$s/html", className));
 
         args.add("--format");
-        args.add(String.format("json:target/cucumber-reports/%1$s/cucumber.json",
-                className));
+        args.add(String.format("json:target/cucumber-reports/%1$s/cucumber.json", className));
     }
 
     /**
-     * This annotation can be used to give additional hints to the
-     * {@link Cucumber} runner about what to run. It provides similar options to
-     * the Cucumber command line used by {@link cucumber.api.cli.Main}
+     * This annotation can be used to give additional hints to the {@link Cucumber} runner about what to run. It
+     * provides similar options to the Cucumber command line used by {@link cucumber.api.cli.Main}
      */
     @Retention(RetentionPolicy.RUNTIME)
     @Target({ElementType.TYPE})
@@ -287,10 +266,9 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
         boolean dryRun() default false;
 
         /**
-         * @return true if strict mode is enabled (fail if there are undefined
-         * or pending steps)
+         * @return true if strict mode is enabled (fail if there are undefined or pending steps)
          */
-        boolean strict() default false;
+        boolean strict() default true;
 
         /**
          * @return the paths to the feature(s)
