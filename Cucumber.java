@@ -103,7 +103,8 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
 
         ResourceLoader resourceLoader = new MultiLoader(clazz, classLoader);
         ClassFinder classFinder = new ResourceLoaderClassFinder(resourceLoader, classLoader);
-        runtime = new Runtime(resourceLoader, classLoader, Arrays.asList(new JavaBackend(classFinder, clazz)), runtimeOptions);
+        runtime = new Runtime(resourceLoader, classLoader, Arrays.asList(new JavaBackend(classFinder, clazz)),
+                runtimeOptions);
 
         jUnitReporter = new JUnitReporter(runtimeOptions.reporter(classLoader), runtimeOptions.formatter(classLoader),
                 runtimeOptions.isStrict());
@@ -175,8 +176,8 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
      */
     private void bindClassToFeatureFile(final RuntimeOptions runtimeOptions,
             final Class clazz) {
-        List<String> featurePaths = new ArrayList<String>();
-        
+        List<String> featurePaths = new ArrayList<>();
+
         for (String featureFileName : runtimeOptions.getFeaturePaths()) {
             // if someone explicitly specified feature file(s) to run, run them
             if (featureFileName.endsWith(".feature")) {
@@ -189,9 +190,9 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             String featureFileName = clazz.getSimpleName() + ".feature";
             featurePaths.add(featureFileName);
         }
-        
+
         runtimeOptions.getFeaturePaths().clear();
-        
+
         for (String featureFileName : featurePaths) {
             URL featureFileURL = clazz.getResource(featureFileName);
             if (featureFileURL == null) {
@@ -247,7 +248,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             throw new InitializationError(ex);
         }
     }
-    
+
     /**
      * all merchant warehouse cucumber tests will want (at least) HTML and JSON reports
      *
