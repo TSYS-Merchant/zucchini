@@ -34,7 +34,6 @@ import java.util.List;
 import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import org.apache.commons.lang.StringUtils;
 
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
