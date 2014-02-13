@@ -49,11 +49,12 @@ import org.junit.runners.model.InitializationError;
  *
  * <ul>
  * <li>It allows for co-mingling of JUnit and Cucumber features. Junit's
- *
  * @org.junit.BeforeClass and @org.junit.AfterClass annotations will work just fine.
  * <li>No more useless empty Java files that only set up a Cucumber JUnit runner
  * <li>It prevents feature steps from "bleeding over" into other files
  * <li>Multiple Java files in the same package can implement the same steps
+ * <li>You can keep your step definitions in a parent class. Inheritance works.
+ * <li>You can tie your step definitions to any arbitrary feature file.
  * </ul>
  *
  * <p>
