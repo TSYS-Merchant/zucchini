@@ -12,7 +12,7 @@ import org.junit.experimental.categories.Category;
 @RunWith(Cucumber.class)
 @Category(com.merchantwarehouse.qa.junit.categories.SmokeTest.class)
 //@Cucumber.Options(features="DifferentlyNamedFeature.feature")
-public class InheritanceTest extends TestBase {
+public class InheritanceTest extends InheritanceTestBase {
 
     @Then("^the total should be (\\d+)$")
     public void then_the_total_should_be(Integer total) {

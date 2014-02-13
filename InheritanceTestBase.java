@@ -7,7 +7,7 @@ import cucumber.api.java.en.When;
  *
  * @author dominicl
  */
-public class TestBase {
+public class InheritanceTestBase {
 
     private int a;
     private int b;
