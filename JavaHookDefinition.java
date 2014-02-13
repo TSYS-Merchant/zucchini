@@ -23,7 +23,8 @@ class JavaHookDefinition implements HookDefinition {
     private final int order;
     private final ObjectFactory objectFactory;
 
-    public JavaHookDefinition(Class clazz, Method method, String[] tagExpressions, int order, long timeoutMillis, ObjectFactory objectFactory) {
+    public JavaHookDefinition(final Class clazz, final Method method, final String[] tagExpressions, final int order,
+            final long timeoutMillis, final ObjectFactory objectFactory) {
         this.clazz = clazz;
         this.method = method;
         this.timeoutMillis = timeoutMillis;
@@ -37,13 +38,13 @@ class JavaHookDefinition implements HookDefinition {
     }
 
     @Override
-    public String getLocation(boolean detail) {
+    public String getLocation(final boolean detail) {
         MethodFormat format = detail ? MethodFormat.FULL : MethodFormat.SHORT;
         return format.format(method);
     }
 
     @Override
-    public void execute(Scenario scenario) throws Throwable {
+    public void execute(final Scenario scenario) throws Throwable {
         Object[] args;
         switch (method.getParameterTypes().length) {
             case 0:
@@ -51,7 +52,8 @@ class JavaHookDefinition implements HookDefinition {
                 break;
             case 1:
                 if (!Scenario.class.equals(method.getParameterTypes()[0])) {
-                    throw new CucumberException("When a hook declares an argument it must be of type " + Scenario.class.getName() + ". " + method.toString());
+                    throw new CucumberException("When a hook declares an argument it must be of type " +
+                            Scenario.class.getName() + ". " + method.toString());
                 }
                 args = new Object[]{scenario};
                 break;
@@ -63,7 +65,7 @@ class JavaHookDefinition implements HookDefinition {
     }
 
     @Override
-    public boolean matches(Collection<Tag> tags) {
+    public boolean matches(final Collection<Tag> tags) {
         return tagExpression.evaluate(tags);
     }
 

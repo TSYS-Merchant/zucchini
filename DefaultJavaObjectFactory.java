@@ -10,22 +10,25 @@ import java.util.Map;
 import java.util.Set;
 
 class DefaultJavaObjectFactory implements ObjectFactory {
-    private final Set<Class<?>> classes = new HashSet<Class<?>>();
-    private final Map<Class<?>, Object> instances = new HashMap<Class<?>, Object>();
+    private final Map<Class<?>, Object> instances = new HashMap<>();
 
+    @Override
     public void start() {
         // No-op
     }
 
+    @Override
     public void stop() {
         instances.clear();
     }
 
-    public void addClass(Class<?> clazz) {
-        classes.add(clazz);
+    @Override
+    public void addClass(final Class<?> clazz) {
+        // no-op
     }
 
-    public <T> T getInstance(Class<T> type) {
+    @Override
+    public <T> T getInstance(final Class<T> type) {
         T instance = type.cast(instances.get(type));
         if (instance == null) {
             instance = cacheNewInstance(type);
@@ -33,14 +36,15 @@ class DefaultJavaObjectFactory implements ObjectFactory {
         return instance;
     }
 
-    private <T> T cacheNewInstance(Class<T> type) {
+    private <T> T cacheNewInstance(final Class<T> type) {
         try {
             Constructor<T> constructor = type.getConstructor();
             T instance = constructor.newInstance();
             instances.put(type, instance);
             return instance;
         } catch (NoSuchMethodException e) {
-            throw new CucumberException(String.format("%s doesn't have an empty constructor. If you need DI, put cucumber-picocontainer on the classpath", type), e);
+            throw new CucumberException(String.format("%s doesn't have an empty constructor. If you need DI, put "
+                    + "cucumber-picocontainer on the classpath", type), e);
         } catch (Exception e) {
             throw new CucumberException(String.format("Failed to instantiate %s", type), e);
         }

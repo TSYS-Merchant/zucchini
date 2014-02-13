@@ -7,7 +7,6 @@ import cucumber.runtime.ClassFinder;
 import cucumber.runtime.CucumberException;
 import cucumber.runtime.DuplicateStepDefinitionException;
 import cucumber.runtime.Glue;
-import cucumber.runtime.Reflections;
 import cucumber.runtime.UnreportedStepExecutor;
 import cucumber.runtime.Utils;
 import cucumber.runtime.java.ObjectFactory;
@@ -22,7 +21,7 @@ import java.util.regex.Pattern;
 
 public class JavaBackend implements Backend {
 
-    private SnippetGenerator snippetGenerator = new SnippetGenerator(new JavaSnippet());
+    private final SnippetGenerator snippetGenerator = new SnippetGenerator(new JavaSnippet());
     private final ObjectFactory objectFactory;
 
     private final MethodScanner methodScanner;
@@ -32,8 +31,9 @@ public class JavaBackend implements Backend {
      * The constructor called by reflection by default.
      *
      * @param classFinder
+     * @param parentClazz
      */
-    public JavaBackend(ClassFinder classFinder, Class parentClazz) {
+    public JavaBackend(final ClassFinder classFinder, final Class parentClazz) {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         methodScanner = new MethodScanner(classFinder);
         objectFactory = new DefaultJavaObjectFactory();
@@ -42,7 +42,7 @@ public class JavaBackend implements Backend {
     }
 
     @Override
-    public void loadGlue(Glue glue, List<String> gluePaths) {
+    public final void loadGlue(final Glue glue, final List<String> gluePaths) {
         this.glue = glue;
         methodScanner.scan(this, gluePaths);
     }
@@ -56,34 +56,35 @@ public class JavaBackend implements Backend {
      * @param glueCodeClass the class implementing the method. Must not be a subclass of the class implementing the
      * method.
      */
-    public void loadGlue(Glue glue, Method method, Class<?> glueCodeClass) {
+    public final void loadGlue(final Glue glue, final Method method, final Class<?> glueCodeClass) {
         this.glue = glue;
         methodScanner.scan(this, method, glueCodeClass);
     }
 
     @Override
-    public void setUnreportedStepExecutor(UnreportedStepExecutor executor) {
+    public final void setUnreportedStepExecutor(final UnreportedStepExecutor executor) {
         //Not used here yet
     }
 
     @Override
-    public void buildWorld() {
+    public final void buildWorld() {
         objectFactory.start();
     }
 
     @Override
-    public void disposeWorld() {
+    public final void disposeWorld() {
         objectFactory.stop();
     }
 
     @Override
-    public String getSnippet(Step step, FunctionNameSanitizer fns) {
+    public final String getSnippet(final Step step, final FunctionNameSanitizer fns) {
         return snippetGenerator.getSnippet(step, fns);
     }
 
-    void addStepDefinition(Annotation annotation, Class clazz, Method method) {
+    void addStepDefinition(final Annotation annotation, final Class clazz, final Method method) {
         try {
-            glue.addStepDefinition(new JavaStepDefinition(clazz, method, pattern(annotation), timeoutMillis(annotation), objectFactory));
+            glue.addStepDefinition(new JavaStepDefinition(clazz, method, pattern(annotation), timeoutMillis(annotation),
+                    objectFactory));
         } catch (DuplicateStepDefinitionException e) {
             throw e;
         } catch (Throwable e) {
@@ -91,36 +92,28 @@ public class JavaBackend implements Backend {
         }
     }
 
-    private Pattern pattern(Annotation annotation) throws Throwable {
+    private Pattern pattern(final Annotation annotation) throws Throwable {
         Method regexpMethod = annotation.getClass().getMethod("value");
         String regexpString = (String) Utils.invoke(annotation, regexpMethod, 0);
         return Pattern.compile(regexpString);
     }
 
-    private long timeoutMillis(Annotation annotation) throws Throwable {
+    private long timeoutMillis(final Annotation annotation) throws Throwable {
         Method regexpMethod = annotation.getClass().getMethod("timeout");
         return (Long) Utils.invoke(annotation, regexpMethod, 0);
     }
 
-    void addHook(Annotation annotation, Class clazz, Method method) {
+    void addHook(final Annotation annotation, final Class clazz, final Method method) {
         if (annotation.annotationType().equals(Before.class)) {
             String[] tagExpressions = ((Before) annotation).value();
             long timeout = ((Before) annotation).timeout();
-            glue.addBeforeHook(new JavaHookDefinition(clazz, method, tagExpressions, ((Before) annotation).order(), timeout, objectFactory));
+            glue.addBeforeHook(new JavaHookDefinition(clazz, method, tagExpressions, ((Before) annotation).order(),
+                    timeout, objectFactory));
         } else {
             String[] tagExpressions = ((After) annotation).value();
             long timeout = ((After) annotation).timeout();
-            glue.addAfterHook(new JavaHookDefinition(clazz, method, tagExpressions, ((After) annotation).order(), timeout, objectFactory));
+            glue.addAfterHook(new JavaHookDefinition(clazz, method, tagExpressions, ((After) annotation).order(),
+                    timeout, objectFactory));
         }
-    }
-
-    private static String getMultipleObjectFactoryLogMessage() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("More than one Cucumber ObjectFactory was found in the classpath\n\n");
-        sb.append("You probably may have included, for instance, cucumber-spring AND cucumber-guice as part of\n");
-        sb.append("your dependencies. When this happens, Cucumber falls back to instantiating the\n");
-        sb.append("DefaultJavaObjectFactory implementation which doesn't provide IoC.\n");
-        sb.append("In order to enjoy IoC features, please remove the unnecessary dependencies from your classpath.\n");
-        return sb.toString();
     }
 }
