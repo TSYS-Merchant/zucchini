@@ -27,14 +27,14 @@ import java.util.logging.Logger;
 
 public class MultiLoader implements ResourceLoader {
 
-    public static final String CLASSPATH_SCHEME = "classpath:";
+    private static final String CLASSPATH_SCHEME = "classpath:";
 
     private final Class clazz;
     private final ClassLoader classLoader;
     private final ClasspathResourceLoader classpath;
     private final FileResourceLoader fs;
 
-    public MultiLoader(Class clazz, ClassLoader classLoader) {
+    public MultiLoader(final Class clazz, final ClassLoader classLoader) {
         this.clazz = clazz;
         this.classLoader = classLoader;
         classpath = new ClasspathResourceLoader(classLoader);
@@ -42,7 +42,7 @@ public class MultiLoader implements ResourceLoader {
     }
 
     @Override
-    public Iterable<Resource> resources(String path, String suffix) {
+    public Iterable<Resource> resources(final String path, final String suffix) {
         if (isClasspathPath(path)) {
             String pathStrippedOfClasspath = stripClasspathPrefix(path);
             String classPackage = clazz.getPackage().getName().replace('.', '/');
@@ -73,18 +73,18 @@ public class MultiLoader implements ResourceLoader {
         }
     }
 
-    public static String packageName(String gluePath) {
+    private static String packageName(String gluePath) {
         if (isClasspathPath(gluePath)) {
             gluePath = stripClasspathPrefix(gluePath);
         }
         return gluePath.replace('/', '.').replace('\\', '.');
     }
 
-    private static boolean isClasspathPath(String path) {
+    private static boolean isClasspathPath(final String path) {
         return path.startsWith(CLASSPATH_SCHEME);
     }
 
-    private static String stripClasspathPrefix(String path) {
+    private static String stripClasspathPrefix(final String path) {
         return path.substring(CLASSPATH_SCHEME.length());
     }
 

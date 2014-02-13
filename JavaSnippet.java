@@ -7,7 +7,7 @@ import java.util.List;
 class JavaSnippet implements Snippet {
 
     @Override
-    public String arguments(List<Class<?>> argumentTypes) {
+    public String arguments(final List<Class<?>> argumentTypes) {
         StringBuilder sb = new StringBuilder();
         int n = 1;
         for (Class<?> argType : argumentTypes) {
@@ -44,7 +44,7 @@ class JavaSnippet implements Snippet {
     }
 
     @Override
-    public String escapePattern(String pattern) {
+    public String escapePattern(final String pattern) {
         return pattern.replace("\\", "\\\\").replace("\"", "\\\"");
     }
 }

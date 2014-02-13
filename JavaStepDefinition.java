@@ -16,15 +16,17 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 class JavaStepDefinition implements StepDefinition {
+
     private final Class clazz;
     private final Method method;
     private final Pattern pattern;
     private final long timeout;
     private final JdkPatternArgumentMatcher argumentMatcher;
     private final ObjectFactory objectFactory;
-    private List<ParameterInfo> parameterInfos;
+    private final List<ParameterInfo> parameterInfos;
 
-    public JavaStepDefinition(Class clazz, Method method, Pattern pattern, long timeoutMillis, ObjectFactory objectFactory) {
+    public JavaStepDefinition(final Class clazz, final Method method, final Pattern pattern, final long timeoutMillis,
+            final ObjectFactory objectFactory) {
         this.clazz = clazz;
         this.method = method;
         this.parameterInfos = ParameterInfo.fromMethod(method);
@@ -34,15 +36,18 @@ class JavaStepDefinition implements StepDefinition {
         this.objectFactory = objectFactory;
     }
 
-    public void execute(I18n i18n, Object[] args) throws Throwable {
+    @Override
+    public void execute(final I18n i18n, final Object[] args) throws Throwable {
         Utils.invoke(objectFactory.getInstance(clazz), method, timeout, args);
     }
 
-    public List<Argument> matchedArguments(Step step) {
+    @Override
+    public List<Argument> matchedArguments(final Step step) {
         return argumentMatcher.argumentsFrom(step.getName());
     }
 
-    public String getLocation(boolean detail) {
+    @Override
+    public String getLocation(final boolean detail) {
         MethodFormat format = detail ? MethodFormat.FULL : MethodFormat.SHORT;
         return format.format(method);
     }
@@ -53,11 +58,11 @@ class JavaStepDefinition implements StepDefinition {
     }
 
     @Override
-    public ParameterInfo getParameterType(int n, Type argumentType) {
+    public ParameterInfo getParameterType(final int n, final Type argumentType) {
         return parameterInfos.get(n);
     }
 
-    public boolean isDefinedAt(StackTraceElement e) {
+    public boolean isDefinedAt(final StackTraceElement e) {
         return e.getClassName().equals(method.getDeclaringClass().getName()) && e.getMethodName().equals(method.getName());
     }
 

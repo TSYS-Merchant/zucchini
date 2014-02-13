@@ -19,7 +19,7 @@ class MethodScanner {
 
     private final ClassFinder classFinder;
 
-    public MethodScanner(ClassFinder classFinder) {
+    public MethodScanner(final ClassFinder classFinder) {
         this.classFinder = classFinder;
         cucumberAnnotationClasses = findCucumberAnnotationClasses();
     }
@@ -30,7 +30,7 @@ class MethodScanner {
      * @param javaBackend the backend where stepdefs and hooks will be registered
      * @param gluePaths   where to look
      */
-    public void scan(JavaBackend javaBackend, List<String> gluePaths) {
+    public void scan(final JavaBackend javaBackend, final List<String> gluePaths) {
         for (String gluePath : gluePaths) {
             for (Class<?> glueCodeClass : classFinder.getDescendants(Object.class, packageName(gluePath))) {
                 while (glueCodeClass != null && glueCodeClass != Object.class && !Utils.isInstantiable(glueCodeClass)) {
@@ -53,12 +53,13 @@ class MethodScanner {
      * @param method        a candidate for being a stepdef or hook.
      * @param glueCodeClass the class where the method is declared.
      */
-    public void scan(JavaBackend javaBackend, Method method, Class<?> glueCodeClass) {
+    public void scan(final JavaBackend javaBackend, final Method method, final Class<?> glueCodeClass) {
         for (Class<? extends Annotation> cucumberAnnotationClass : cucumberAnnotationClasses) {
             Annotation annotation = method.getAnnotation(cucumberAnnotationClass);
             if (annotation != null) {
                 if (!method.getDeclaringClass().isAssignableFrom(glueCodeClass)) {
-                    throw new CucumberException(String.format("%s isn't assignable from %s", method.getDeclaringClass(), glueCodeClass));
+                    throw new CucumberException(String.format("%s isn't assignable from %s", 
+                            method.getDeclaringClass(), glueCodeClass));
                 }
                 if (isHookAnnotation(annotation)) {
                     javaBackend.addHook(annotation, glueCodeClass, method);
@@ -73,12 +74,12 @@ class MethodScanner {
         return classFinder.getDescendants(Annotation.class, "cucumber.api");
     }
 
-    private boolean isHookAnnotation(Annotation annotation) {
+    private boolean isHookAnnotation(final Annotation annotation) {
         Class<? extends Annotation> annotationClass = annotation.annotationType();
         return annotationClass.equals(Before.class) || annotationClass.equals(After.class);
     }
 
-    private boolean isStepdefAnnotation(Annotation annotation) {
+    private boolean isStepdefAnnotation(final Annotation annotation) {
         Class<? extends Annotation> annotationClass = annotation.annotationType();
         return annotationClass.getAnnotation(StepDefAnnotation.class) != null;
     }

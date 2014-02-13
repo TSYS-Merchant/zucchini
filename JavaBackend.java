@@ -37,7 +37,7 @@ public class JavaBackend implements Backend {
         ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         methodScanner = new MethodScanner(classFinder);
         objectFactory = new DefaultJavaObjectFactory();
-        
+
         objectFactory.addClass(parentClazz);
     }
 
@@ -45,20 +45,6 @@ public class JavaBackend implements Backend {
     public final void loadGlue(final Glue glue, final List<String> gluePaths) {
         this.glue = glue;
         methodScanner.scan(this, gluePaths);
-    }
-
-    /**
-     * Convenience method for frameworks that wish to load glue from methods explicitly (possibly found with a different
-     * mechanism than Cucumber's built-in classpath scanning).
-     *
-     * @param glue where stepdefs and hooks will be added.
-     * @param method a candidate method.
-     * @param glueCodeClass the class implementing the method. Must not be a subclass of the class implementing the
-     * method.
-     */
-    public final void loadGlue(final Glue glue, final Method method, final Class<?> glueCodeClass) {
-        this.glue = glue;
-        methodScanner.scan(this, method, glueCodeClass);
     }
 
     @Override
@@ -81,7 +67,7 @@ public class JavaBackend implements Backend {
         return snippetGenerator.getSnippet(step, fns);
     }
 
-    void addStepDefinition(final Annotation annotation, final Class clazz, final Method method) {
+    final void addStepDefinition(final Annotation annotation, final Class clazz, final Method method) {
         try {
             glue.addStepDefinition(new JavaStepDefinition(clazz, method, pattern(annotation), timeoutMillis(annotation),
                     objectFactory));
@@ -103,7 +89,7 @@ public class JavaBackend implements Backend {
         return (Long) Utils.invoke(annotation, regexpMethod, 0);
     }
 
-    void addHook(final Annotation annotation, final Class clazz, final Method method) {
+    final void addHook(final Annotation annotation, final Class clazz, final Method method) {
         if (annotation.annotationType().equals(Before.class)) {
             String[] tagExpressions = ((Before) annotation).value();
             long timeout = ((Before) annotation).timeout();

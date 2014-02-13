@@ -5,9 +5,7 @@ import cucumber.runtime.java.ObjectFactory;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 class DefaultJavaObjectFactory implements ObjectFactory {
     private final Map<Class<?>, Object> instances = new HashMap<>();
