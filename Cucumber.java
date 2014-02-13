@@ -31,8 +31,10 @@ import java.lang.reflect.Method;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Arrays;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import org.apache.commons.lang.StringUtils;
 
 import org.junit.runner.Description;
 import org.junit.runner.notification.RunNotifier;
@@ -58,11 +60,12 @@ import org.junit.runners.model.InitializationError;
  * <p>
  * All other features should work as expected.</p>
  *
- * <p/>
- * This class relies heavily on conventions. Cucumber will look for a {@code .feature} file on the classpath, using the
- * same name as the annotated class ({@code .java} substituted by {@code .feature}). Make sure that your feature file
- * and your annotated Java file have the same name, as this class will tie them together.
- * <p/>
+ * <p>
+ * This class relies heavily on conventions. If no feature paths are specified, Cucumber will look for a
+ * {@code .feature} file on the classpath, using the same name as the annotated class ({@code .java} substituted by
+ * {@code .feature}). Make sure that your feature file and your annotated Java file have the same name, as this class
+ * will tie them together.
+ * </p>
  * Additional hints can be given to Cucumber by annotating the class with {@link Options}.
  *
  * @see Options
@@ -96,12 +99,12 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
 
         RuntimeOptions runtimeOptions = createRuntimeOptions(clazz);
         removeDupesFromGlue(runtimeOptions);
+
         bindClassToFeatureFile(runtimeOptions, clazz);
 
         ResourceLoader resourceLoader = new MultiLoader(clazz, classLoader);
         ClassFinder classFinder = new ResourceLoaderClassFinder(resourceLoader, classLoader);
-        runtime = new Runtime(resourceLoader, classFinder, classLoader,
-                runtimeOptions);
+        runtime = new Runtime(resourceLoader, classLoader, Arrays.asList(new JavaBackend(classFinder, clazz)), runtimeOptions);
 
         jUnitReporter = new JUnitReporter(runtimeOptions.reporter(classLoader), runtimeOptions.formatter(classLoader),
                 runtimeOptions.isStrict());
@@ -173,17 +176,32 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
      */
     private void bindClassToFeatureFile(final RuntimeOptions runtimeOptions,
             final Class clazz) {
+        List<String> featurePaths = new ArrayList<String>();
+        
+        for (String featureFileName : runtimeOptions.getFeaturePaths()) {
+            // if someone explicitly specified feature file(s) to run, run them
+            if (featureFileName.endsWith(".feature")) {
+                featurePaths.add(featureFileName);
+            }
+        }
+
+        if (featurePaths.isEmpty()) {
+            // no features were explicitly specified. bind the class to a feature file with the same name
+            String featureFileName = clazz.getSimpleName() + ".feature";
+            featurePaths.add(featureFileName);
+        }
+        
         runtimeOptions.getFeaturePaths().clear();
-
-        String featureFileName = clazz.getSimpleName() + ".feature";
-
-        URL featureFileURL = clazz.getResource(featureFileName);
-        if (featureFileURL == null) {
-            // this should be an unchecked exception because there's nothing the
-            // caller can do to safely recover from this error
-            throw new RuntimeException("Could not find Gherkin feature file: " + featureFileName);
-        } else {
-            runtimeOptions.getFeaturePaths().add(featureFileURL.getFile());
+        
+        for (String featureFileName : featurePaths) {
+            URL featureFileURL = clazz.getResource(featureFileName);
+            if (featureFileURL == null) {
+                // this should be an unchecked exception because there's nothing the
+                // caller can do to safely recover from this error
+                throw new RuntimeException("Could not find Gherkin feature file: " + featureFileName);
+            } else {
+                runtimeOptions.getFeaturePaths().add(featureFileURL.getFile());
+            }
         }
     }
 
@@ -230,7 +248,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             throw new InitializationError(ex);
         }
     }
-
+    
     /**
      * all merchant warehouse cucumber tests will want (at least) HTML and JSON reports
      *
@@ -243,13 +261,16 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
      */
     private void applyDefaultFormatting(final Class clazz,
             final List<String> args) {
-        String className = clazz.getName();
+        if (!args.contains("--format")) {
+            // apply the default formatting only if no formatting options were explicitly requested
+            String className = clazz.getName();
 
-        args.add("--format");
-        args.add(String.format("html:target/cucumber-reports/%1$s/html", className));
+            args.add("--format");
+            args.add(String.format("html:target/cucumber-reports/%1$s/html", className));
 
-        args.add("--format");
-        args.add(String.format("json:target/cucumber-reports/%1$s/cucumber.json", className));
+            args.add("--format");
+            args.add(String.format("json:target/cucumber-reports/%1$s/cucumber.json", className));
+        }
     }
 
     /**

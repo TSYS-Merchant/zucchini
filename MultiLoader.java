@@ -48,7 +48,7 @@ public class MultiLoader implements ResourceLoader {
             String classPackage = clazz.getPackage().getName().replace('.', '/');
 
             if (pathStrippedOfClasspath.equals(classPackage)) {
-                // enforce a convention of Scenario.class and Scenario.feature being linked
+                // only load the @Resource associated with this.clazz
                 try {
                     Enumeration<URL> resources = classLoader.getResources(pathStrippedOfClasspath);
                     while (resources.hasMoreElements()) {
