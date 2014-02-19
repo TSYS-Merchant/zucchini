@@ -102,7 +102,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
 
         bindClassToFeatureFile(runtimeOptions, clazz);
 
-        ResourceLoader resourceLoader = new MultiLoader(clazz, classLoader);
+        MultiLoader resourceLoader = new MultiLoader(clazz, classLoader);
         ClassFinder classFinder = new ResourceLoaderClassFinder(resourceLoader, classLoader);
         runtime = new Runtime(resourceLoader, classLoader, Arrays.asList(new JavaBackend(classFinder, clazz)),
                 runtimeOptions);
