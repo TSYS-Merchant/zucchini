@@ -23,7 +23,7 @@ Zucchini is API-compatible with cucumber-jvm. This means that if your testing te
 
 # Documentation
 
-Because zucchini is API-compatible with Cucumber, please refer to [Cucumber’s documentation](http://cukes.info/platforms.html). Please see our Examples section below for how zucchini deviates ever so slightly from Cucumber.
+Because zucchini is API-compatible with Cucumber, you can learn how to use it by reading up on [Cucumber’s documentation](http://cukes.info/platforms.html). Please see our Examples section below for how zucchini deviates ever so slightly from Cucumber.
 
 #Examples
 
