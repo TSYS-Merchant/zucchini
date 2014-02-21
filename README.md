@@ -27,9 +27,67 @@ Because zucchini is API-compatible with Cucumber, please refer to [Cucumber’s 
 
 #Examples
 
-https://github.com/merchantwarehouse/automation-framework/tree/master/automationFramework/src/test/java/com/merchantwarehouse/qa/cukes
+Below is a Gherkin feature file. It defines a very basic calculator with only an "add function". In this scenario, we are using Gherkin's "Scenario Outline" syntax, so that we can do data-driven testing on our feature.
 
-https://github.com/merchantwarehouse/automation-framework/tree/master/automationFramework/src/test/resources/com/merchantwarehouse/qa/cukes
+```cucumber
+Feature: Adding two numbers together
+   As a calculator
+   In order sum things
+   I want learn how to add
+
+   Scenario Outline: Adding numbers together
+      Given two integers <a> and <b>
+      When you add them together
+      Then the total should be <total>
+
+      Examples:
+         |a|b|total|
+         |1|2|3|
+         |4|5|9|
+```
+
+And below is the Java code that implements the feature (aka "step definitions").
+
+```java
+public class InheritanceTestBase {
+
+    private int a;
+    private int b;
+    private int total;
+
+    @Given("^two integers (\\d+) and (\\d+)$")
+    public final void given_two_integers(final Integer a, final Integer b) {
+        this.a = a;
+        this.b = b;
+    }
+
+    @When("^you add them together$")
+    public final void when_you_add_them_together() {
+        total = a + b;
+    }
+
+    public final Integer getTotal() {
+        return total;
+    }
+}
+
+@RunWith(Cucumber.class)
+@Cucumber.Options(features = "DifferentlyNamedFeature.feature")
+public class GlueClassNamedDifferentlyThanTheFeatureFileTest extends InheritanceTestBase {
+
+    @Then("^the total should be (\\d+)$")
+    public void then_the_total_should_be(Integer total) {
+        assertEquals("total", total, getTotal());
+    }
+}
+```
+
+## Unit tests
+
+Looking at our unit tests is always a good way to learn how to use zucchini.
+
+* https://github.com/merchantwarehouse/automation-framework/tree/master/automationFramework/src/test/java/com/merchantwarehouse/qa/cukes
+* https://github.com/merchantwarehouse/automation-framework/tree/master/automationFramework/src/test/resources/com/merchantwarehouse/qa/cukes
 
 #Example output
 
