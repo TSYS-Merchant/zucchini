@@ -27,13 +27,13 @@ Because zucchini is API-compatible with Cucumber, please refer to [Cucumber’s 
 
 #Examples
 
-Below is a Gherkin feature file. It defines a very basic calculator with only an "add function". In this scenario, we are using Gherkin's "Scenario Outline" syntax, so that we can do data-driven testing on our feature.
+Below is a sample Gherkin feature file. It defines a very basic calculator with only an "add" function. In this scenario, we are using Gherkin's "Scenario Outline" syntax. This allows us to define a data-driven test:
 
 ```cucumber
 Feature: Adding two numbers together
    As a calculator
    In order sum things
-   I want learn how to add
+   I want to learn how to add
 
    Scenario Outline: Adding numbers together
       Given two integers <a> and <b>
@@ -46,7 +46,7 @@ Feature: Adding two numbers together
          |4|5|9|
 ```
 
-And below is the Java code that implements the feature (aka "step definitions").
+And below is the Java code that implements the feature (aka the "step definitions"):
 
 ```java
 public class InheritanceTestBase {
@@ -84,14 +84,14 @@ public class GlueClassNamedDifferentlyThanTheFeatureFileTest extends Inheritance
 
 ## Unit tests
 
-Looking at our unit tests is always a good way to learn how to use zucchini.
+Looking at our unit tests is always a good way to learn how to use zucchini. Please see the following for some hands-on examples:
 
 * https://github.com/merchantwarehouse/automation-framework/tree/master/automationFramework/src/test/java/com/merchantwarehouse/qa/cukes
 * https://github.com/merchantwarehouse/automation-framework/tree/master/automationFramework/src/test/resources/com/merchantwarehouse/qa/cukes
 
 #Example output
 
-Like Cucumber proper, zucchini integrates nicely into a variety of visualization tools, such as Jenkins. There are a number of tools to visualize Cucumber's results, including:
+Like Cucumber, zucchini integrates nicely into a variety of visualization tools, such as Jenkins. Any tool that understands Cucumber's output should understand zucchini's too. There are a number of tools to visualize Cucumber's results, including:
 
 * https://github.com/masterthought/jenkins-cucumber-jvm-reports-plugin
 * https://wiki.jenkins-ci.org/display/JENKINS/Cucumber+Test+Result+Plugin
