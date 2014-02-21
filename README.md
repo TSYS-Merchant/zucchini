@@ -6,7 +6,7 @@ Zucchini is a set of extensions to the [cucumber-jvm](https://github.com/cucumbe
 Merchant Warehouse’s zucchini framework offers tighter integration with the [Java programming language](http://www.java.com/en/) and the [JUnit testing framework](http://junit.org/), providing developers and testers alike with a much more natural programming experience.
 
 Some of zucchini’s notable features include:
-* Better integration with JUnit. Junit’s @BeforeClass and @AfterClass annotations work.
+* Better integration with JUnit. Junit’s [@BeforeClass](http://junit.sourceforge.net/javadoc/org/junit/BeforeClass.html) and [@AfterClass](http://junit.sourceforge.net/javadoc/org/junit/AfterClass.html) annotations work. Junit's [@Before](http://junit.sourceforge.net/javadoc/org/junit/Before.html) and [@After](http://junit.sourceforge.net/javadoc/org/junit/After.html) annotations don't work, but that's because Cucumber provides equivalent annotations.
 * Tight coupling between [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin) feature files and your JUnit test classes. Bind your JUnit test class to one or more feature files as you please. No longer do you have to worry about Cucumber’s dreaded “duplicate step definitions found” error.
 * Object inheritance works. You can define your step definitions in a base class and inherit them in child classes.
 * No need for empty JUnit test runner classes. Declare your @Cucumber annotation right on your step definition files.
