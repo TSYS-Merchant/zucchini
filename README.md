@@ -116,4 +116,4 @@ We also love bug reports & feature requests. You can file bugs and feature reque
 * What output you saw
 * How the problem can be reproduced. A small Visual Studio project zipped up or code snippet that demonstrates or reproduces the issue is always appreciated.
 
-You can also always find help on the zucchini Google Group.
+You can also always find help on the [zucchini Google Group](https://groups.google.com/forum/#!forum/zucchini-bdd).
