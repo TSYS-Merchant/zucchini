@@ -250,6 +250,8 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
         }
     }
 
+    private static String CUCUMBER_FORMAT_COMMAND_LINE_ARG = "--format";
+    
     /**
      * all merchant warehouse cucumber tests will want (at least) HTML and JSON reports
      *
@@ -262,14 +264,14 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
      */
     private void applyDefaultFormatting(final Class clazz,
             final List<String> args) {
-        if (!args.contains("--format")) {
+        if (!args.contains(CUCUMBER_FORMAT_COMMAND_LINE_ARG)) {
             // apply the default formatting only if no formatting options were explicitly requested
             String className = clazz.getName();
 
-            args.add("--format");
+            args.add(CUCUMBER_FORMAT_COMMAND_LINE_ARG);
             args.add(String.format("html:build/cucumber-reports/%1$s/html", className));
 
-            args.add("--format");
+            args.add(CUCUMBER_FORMAT_COMMAND_LINE_ARG);
             args.add(String.format("json:build/cucumber-reports/%1$s/cucumber.json", className));
         }
     }
