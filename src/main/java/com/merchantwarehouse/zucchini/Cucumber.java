@@ -166,8 +166,8 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
         runtimeOptions.getGlue().clear();
         runtimeOptions.getGlue().addAll(allGlue);
     }
-    
-    private static String FEATURE_FILE_SUFFIX = ".feature";
+
+    private static final String FEATURE_FILE_SUFFIX = ".feature";
 
     /**
      * Binds the Java Class and Gherkin Feature File together.
@@ -236,7 +236,6 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             // RuntimeOptionsFactory), we merely "peek up its skirt", grab a
             // handle to the buildArgsFromOptions() method, and append our
             // default formatters to the list.
-            
             // WARNING: this voids the warranty...
             Method m = runtimeOptionsFactory.getClass().getDeclaredMethod("buildArgsFromOptions");
             m.setAccessible(true);
@@ -253,8 +252,8 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
         }
     }
 
-    private static String CUCUMBER_FORMAT_COMMAND_LINE_ARG = "--format";
-    
+    private static final String CUCUMBER_FORMAT_COMMAND_LINE_ARG = "--format";
+
     /**
      * all merchant warehouse cucumber tests will want (at least) HTML and JSON reports
      *
