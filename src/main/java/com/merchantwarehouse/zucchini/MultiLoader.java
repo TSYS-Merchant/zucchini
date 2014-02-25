@@ -51,9 +51,9 @@ public class MultiLoader implements ResourceLoader {
                 try {
                     Enumeration<URL> resources = classLoader.getResources(pathStrippedOfClasspath);
                     while (resources.hasMoreElements()) {
-                        Iterator<Resource> iter_ = new DelegatingResourceIteratorFactory().createIterator(resources.nextElement(), pathStrippedOfClasspath, suffix);
-                        while (iter_.hasNext()) {
-                            Resource r = iter_.next();
+                        Iterator<Resource> iter = new DelegatingResourceIteratorFactory().createIterator(resources.nextElement(), pathStrippedOfClasspath, suffix);
+                        while (iter.hasNext()) {
+                            Resource r = iter.next();
                             if (r.getClassName().endsWith(clazz.getName())) {
                                 return Arrays.asList(r);
                             }
