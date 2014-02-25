@@ -21,11 +21,11 @@ class JavaSnippet implements Snippet {
 
     @Override
     public String template() {
-        return "@{0}(\"{1}\")\n" +
-                "public void {2}({3}) throws Throwable '{'\n" +
-                "    // {4}\n" +
-                "{5}    throw new PendingException();\n" +
-                "'}'\n";
+        return "@{0}(\"{1}\")\n"
+                + "public void {2}({3}) throws Throwable '{'\n"
+                + "    // {4}\n"
+                + "{5}    throw new PendingException();\n"
+                + "'}'\n";
     }
 
     @Override

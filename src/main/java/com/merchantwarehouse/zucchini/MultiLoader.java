@@ -3,9 +3,8 @@
  *
  * [ MultiLoader.java ]
  *
- * COPYRIGHT (c) 1999 - 2013 by Merchant Warehouse, Boston, MA USA. All rights
- * reserved. This material contains unpublished, copyrighted work including
- * confidential and proprietary information of Merchant Warehouse.
+ * COPYRIGHT (c) 1999 - 2013 by Merchant Warehouse, Boston, MA USA. All rights reserved. This material contains
+ * unpublished, copyrighted work including confidential and proprietary information of Merchant Warehouse.
  *
  ********************************************************************************
  */

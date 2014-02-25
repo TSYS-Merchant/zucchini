@@ -10,8 +10,8 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * This class tests the integration with various junit features (@BeforeClass and @AfterClass). It also has the side
- * effect of testing that the same Gherkin rules and the same Cucumber Step Definitions may appear in more than one
- * file without them conflicting.
+ * effect of testing that the same Gherkin rules and the same Cucumber Step Definitions may appear in more than one file
+ * without them conflicting.
  *
  * @author dominicl
  */
@@ -54,7 +54,7 @@ public class JunitIntegrationTest {
     public void then_the_total_should_be(Integer total) {
         countOfTimesThenWasCalled++;
     }
-    
+
     @Given("^two integers (\\d+) and (\\d+)$")
     public final void given_two_integers(final Integer a, final Integer b) {
         countOfTimesGivenWasCalled++;

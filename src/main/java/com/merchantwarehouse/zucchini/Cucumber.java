@@ -17,7 +17,6 @@ import cucumber.runtime.Env;
 import cucumber.runtime.Runtime;
 import cucumber.runtime.RuntimeOptions;
 import cucumber.runtime.RuntimeOptionsFactory;
-import cucumber.runtime.io.ResourceLoader;
 import cucumber.runtime.io.ResourceLoaderClassFinder;
 import cucumber.runtime.junit.FeatureRunner;
 import cucumber.runtime.junit.JUnitReporter;
@@ -49,6 +48,7 @@ import org.junit.runners.model.InitializationError;
  *
  * <ul>
  * <li>It allows for co-mingling of JUnit and Cucumber features. Junit's
+ *
  * @org.junit.BeforeClass and @org.junit.AfterClass annotations will work just fine.
  * <li>No more useless empty Java files that only set up a Cucumber JUnit runner
  * <li>It prevents feature steps from "bleeding over" into other files

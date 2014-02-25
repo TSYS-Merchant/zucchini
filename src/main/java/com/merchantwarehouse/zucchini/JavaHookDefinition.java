@@ -52,8 +52,8 @@ class JavaHookDefinition implements HookDefinition {
                 break;
             case 1:
                 if (!Scenario.class.equals(method.getParameterTypes()[0])) {
-                    throw new CucumberException("When a hook declares an argument it must be of type " +
-                            Scenario.class.getName() + ". " + method.toString());
+                    throw new CucumberException("When a hook declares an argument it must be of type "
+                            + Scenario.class.getName() + ". " + method.toString());
                 }
                 args = new Object[]{scenario};
                 break;

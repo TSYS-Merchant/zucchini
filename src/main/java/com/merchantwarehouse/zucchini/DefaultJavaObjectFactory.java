@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 class DefaultJavaObjectFactory implements ObjectFactory {
+
     private final Map<Class<?>, Object> instances = new HashMap<>();
 
     @Override

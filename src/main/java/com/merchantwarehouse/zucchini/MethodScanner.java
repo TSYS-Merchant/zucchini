@@ -15,6 +15,7 @@ import static cucumber.runtime.io.MultiLoader.packageName;
 import cucumber.runtime.java.StepDefAnnotation;
 
 class MethodScanner {
+
     private final Collection<Class<? extends Annotation>> cucumberAnnotationClasses;
 
     private final ClassFinder classFinder;
@@ -28,7 +29,7 @@ class MethodScanner {
      * Registers step definitions and hooks.
      *
      * @param javaBackend the backend where stepdefs and hooks will be registered
-     * @param gluePaths   where to look
+     * @param gluePaths where to look
      */
     public void scan(final JavaBackend javaBackend, final List<String> gluePaths) {
         for (String gluePath : gluePaths) {
@@ -49,8 +50,8 @@ class MethodScanner {
     /**
      * Registers step definitions and hooks.
      *
-     * @param javaBackend   the backend where stepdefs and hooks will be registered.
-     * @param method        a candidate for being a stepdef or hook.
+     * @param javaBackend the backend where stepdefs and hooks will be registered.
+     * @param method a candidate for being a stepdef or hook.
      * @param glueCodeClass the class where the method is declared.
      */
     public void scan(final JavaBackend javaBackend, final Method method, final Class<?> glueCodeClass) {
@@ -58,7 +59,7 @@ class MethodScanner {
             Annotation annotation = method.getAnnotation(cucumberAnnotationClass);
             if (annotation != null) {
                 if (!method.getDeclaringClass().isAssignableFrom(glueCodeClass)) {
-                    throw new CucumberException(String.format("%s isn't assignable from %s", 
+                    throw new CucumberException(String.format("%s isn't assignable from %s",
                             method.getDeclaringClass(), glueCodeClass));
                 }
                 if (isHookAnnotation(annotation)) {
