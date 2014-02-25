@@ -166,6 +166,8 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
         runtimeOptions.getGlue().clear();
         runtimeOptions.getGlue().addAll(allGlue);
     }
+    
+    private static String FEATURE_FILE_SUFFIX = ".feature";
 
     /**
      * Binds the Java Class and Gherkin Feature File together.
@@ -181,14 +183,14 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
 
         for (String featureFileName : runtimeOptions.getFeaturePaths()) {
             // if someone explicitly specified feature file(s) to run, run them
-            if (featureFileName.endsWith(".feature")) {
+            if (featureFileName.endsWith(FEATURE_FILE_SUFFIX)) {
                 featurePaths.add(featureFileName);
             }
         }
 
         if (featurePaths.isEmpty()) {
             // no features were explicitly specified. bind the class to a feature file with the same name
-            String featureFileName = clazz.getSimpleName() + ".feature";
+            String featureFileName = clazz.getSimpleName() + FEATURE_FILE_SUFFIX;
             featurePaths.add(featureFileName);
         }
 
@@ -234,9 +236,10 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             // RuntimeOptionsFactory), we merely "peek up its skirt", grab a
             // handle to the buildArgsFromOptions() method, and append our
             // default formatters to the list.
-            Method m;
-            m = runtimeOptionsFactory.getClass().getDeclaredMethod("buildArgsFromOptions");
-            m.setAccessible(true); // voids the warranty...
+            
+            // WARNING: this voids the warranty...
+            Method m = runtimeOptionsFactory.getClass().getDeclaredMethod("buildArgsFromOptions");
+            m.setAccessible(true);
             List<String> args = (List<String>) m.invoke(runtimeOptionsFactory);
 
             // all merchant warehouse cucumber tests will want (at least) HTML
