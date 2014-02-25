@@ -1,6 +1,6 @@
 apply plugin: 'java'
 
-group = 'com.merchantware.qa'
+group = 'com.merchantwarehouse.qa'
 version = '0.1.0-SNAPSHOT'
 
 repositories {
