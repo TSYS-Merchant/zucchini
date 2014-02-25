@@ -98,10 +98,10 @@ Like Cucumber, zucchini integrates nicely into a variety of visualization tools,
 * https://wiki.jenkins-ci.org/display/JENKINS/Cucumber+Test+Result+Plugin
 
 ## Cucumber feature overview
-![cucumber feature overview, using jenkins' cucumber jvm reports plugin](https://raw.github.com/merchantwarehouse/zucchini/master/.README/CucumberFeatureOverview.png)
+![cucumber feature overview, using jenkins' cucumber jvm reports plugin](.README/CucumberFeatureOverview.png)
 
 ## Cucumber feature results
-![cucumber feature results, using jenkins' cucumber jvm reports plugin](https://raw.github.com/merchantwarehouse/zucchini/master/.README/CucumberFeatureResult.png)
+![cucumber feature results, using jenkins' cucumber jvm reports plugin](.README/CucumberFeatureResult.png)
  
  
 # Downloading / Installation
