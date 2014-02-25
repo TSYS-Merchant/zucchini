@@ -254,7 +254,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
      * all merchant warehouse cucumber tests will want (at least) HTML and JSON reports
      *
      * <p>
-     * enforce a convention that the data ends up in a folder named "target/cucumber-reports/$classname". this obviates
+     * enforce a convention that the data ends up in a folder named "build/cucumber-reports/$classname". this obviates
      * having to write a lot of boilerplate @Cucumber.Options(format=...) as part of every Stepdefs class</p>
      *
      * @param clazz the class with the JUnit @RunWith annotation
@@ -267,10 +267,10 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             String className = clazz.getName();
 
             args.add("--format");
-            args.add(String.format("html:target/cucumber-reports/%1$s/html", className));
+            args.add(String.format("html:build/cucumber-reports/%1$s/html", className));
 
             args.add("--format");
-            args.add(String.format("json:target/cucumber-reports/%1$s/cucumber.json", className));
+            args.add(String.format("json:build/cucumber-reports/%1$s/cucumber.json", className));
         }
     }
 
