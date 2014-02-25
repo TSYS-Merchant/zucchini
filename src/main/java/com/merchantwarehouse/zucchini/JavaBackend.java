@@ -34,7 +34,6 @@ public class JavaBackend implements Backend {
      * @param parentClazz
      */
     public JavaBackend(final ClassFinder classFinder, final Class parentClazz) {
-        ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
         methodScanner = new MethodScanner(classFinder);
         objectFactory = new DefaultJavaObjectFactory();
 
