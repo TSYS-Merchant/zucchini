@@ -28,7 +28,6 @@ import java.lang.annotation.Target;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.net.URL;
-import java.nio.file.ProviderNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Arrays;
@@ -179,7 +178,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
      * @param clazz the class that we've annotated with JUnit @RunWith
      */
     private void bindClassToFeatureFile(final RuntimeOptions runtimeOptions,
-            final Class clazz) {
+            final Class clazz) throws InitializationError {
         List<String> featurePaths = new ArrayList<>();
 
         for (String featureFileName : runtimeOptions.getFeaturePaths()) {
@@ -202,7 +201,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
             if (featureFileURL == null) {
                 // this should be an unchecked exception because there's nothing the
                 // caller can do to safely recover from this error
-                throw new ProviderNotFoundException("Could not find Gherkin feature file: " + featureFileName);
+                throw new InitializationError("Could not find Gherkin feature file: " + featureFileName);
             } else {
                 runtimeOptions.getFeaturePaths().add(featureFileURL.getFile());
             }
