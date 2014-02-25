@@ -1,4 +1,4 @@
-package com.merchantwarehouse.qa.cukes;
+package com.merchantwarehouse.zucchini;
 
 import cucumber.runtime.CucumberException;
 import cucumber.runtime.java.ObjectFactory;

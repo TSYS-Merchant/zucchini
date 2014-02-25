@@ -9,7 +9,7 @@
  *
  ********************************************************************************
  */
-package com.merchantwarehouse.qa.cukes;
+package com.merchantwarehouse.zucchini;
 
 import cucumber.runtime.io.ClasspathResourceLoader;
 import cucumber.runtime.io.DelegatingResourceIteratorFactory;

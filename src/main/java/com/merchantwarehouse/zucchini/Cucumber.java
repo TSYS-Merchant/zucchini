@@ -8,7 +8,7 @@
  *
  *******************************************************************************
  */
-package com.merchantwarehouse.qa.cukes;
+package com.merchantwarehouse.zucchini;
 
 import cucumber.api.CucumberOptions;
 import cucumber.api.SnippetType;

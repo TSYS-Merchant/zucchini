@@ -1,4 +1,4 @@
-package com.merchantwarehouse.qa.cukes;
+package com.merchantwarehouse.zucchini;
 
 import cucumber.api.java.en.Then;
 import static org.junit.Assert.assertEquals;

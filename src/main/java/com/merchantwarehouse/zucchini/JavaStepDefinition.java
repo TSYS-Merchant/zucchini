@@ -1,4 +1,4 @@
-package com.merchantwarehouse.qa.cukes;
+package com.merchantwarehouse.zucchini;
 
 import cucumber.runtime.JdkPatternArgumentMatcher;
 import cucumber.runtime.MethodFormat;
