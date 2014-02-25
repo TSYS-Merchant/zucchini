@@ -1,5 +1,5 @@
 #Intro
-Zucchini is a set of extensions to the [cucumber-jvm](https://github.com/cucumber/cucumber-jvm) Behavior-driven Development framework. These extensions make it significantly easier to use the popular [Behavior-driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) framework.
+Zucchini is a set of extensions to the [cucumber-jvm](https://github.com/cucumber/cucumber-jvm) [Behavior-driven Development](http://en.wikipedia.org/wiki/Behavior-driven_development) framework. These extensions make it significantly easier to use the popular BDD framework.
 
 [Cucumber](http://cukes.info/) lets software development teams describe how software should behave in plain text. The text is written in a [business-readable domain-specific language](http://www.martinfowler.com/bliki/BusinessReadableDSL.html) and serves as documentation, automated tests and development-aid - all rolled into one format.
 
@@ -32,8 +32,8 @@ Below is a sample Gherkin feature file. It defines a very basic calculator with 
 ```cucumber
 Feature: Adding two numbers together
    As a calculator
-   In order sum things
-   I want to learn how to add
+   In order to sum numbers
+   I want to be able to to add
 
    Scenario Outline: Adding numbers together
       Given two integers <a> and <b>
@@ -46,7 +46,7 @@ Feature: Adding two numbers together
          |4|5|9|
 ```
 
-And below is the Java code that implements the feature (aka the "step definitions"):
+And below is the Java code that implements the feature (aka the "step definitions"). The example also shows that step definitions can be inherited by child classes. The @Cucumber.Options tag is optional - by default, zucchini will look for a Gherkin feature file with the same name as your JUnit test class.
 
 ```java
 public class InheritanceTestBase {
@@ -97,7 +97,7 @@ Like Cucumber, zucchini integrates nicely into a variety of visualization tools,
 * https://wiki.jenkins-ci.org/display/JENKINS/Cucumber+Test+Result+Plugin
 
 ## Cucumber feature overview
-![cucumber feature overview, using jenkins' cucumber jvm reports plugin ](https://raw.github.com/merchantwarehouse/zucchini/master/.README/CucumberFeatureOverview.png)
+![cucumber feature overview, using jenkins' cucumber jvm reports plugin](https://raw.github.com/merchantwarehouse/zucchini/master/.README/CucumberFeatureOverview.png)
 
 ## Cucumber feature results
 ![cucumber feature results, using jenkins' cucumber jvm reports plugin](https://raw.github.com/merchantwarehouse/zucchini/master/.README/CucumberFeatureResult.png)
