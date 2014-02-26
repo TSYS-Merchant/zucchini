@@ -55,18 +55,15 @@ class MethodScanner {
      * @param glueCodeClass the class where the method is declared.
      */
     public void scan(final JavaBackend javaBackend, final Method method, final Class<?> glueCodeClass) {
-        for (Class<? extends Annotation> cucumberAnnotationClass : cucumberAnnotationClasses) {
-            Annotation annotation = method.getAnnotation(cucumberAnnotationClass);
-            if (annotation != null) {
-                if (!method.getDeclaringClass().isAssignableFrom(glueCodeClass)) {
-                    throw new CucumberException(String.format("%s isn't assignable from %s",
-                            method.getDeclaringClass(), glueCodeClass));
-                }
-                if (isHookAnnotation(annotation)) {
-                    javaBackend.addHook(annotation, glueCodeClass, method);
-                } else if (isStepdefAnnotation(annotation)) {
-                    javaBackend.addStepDefinition(annotation, glueCodeClass, method);
-                }
+        for (Annotation annotation : method.getDeclaredAnnotations()) {
+            if (!method.getDeclaringClass().isAssignableFrom(glueCodeClass)) {
+                throw new CucumberException(String.format("%s isn't assignable from %s",
+                        method.getDeclaringClass(), glueCodeClass));
+            }
+            if (isHookAnnotation(annotation)) {
+                javaBackend.addHook(annotation, glueCodeClass, method);
+            } else if (isStepdefAnnotation(annotation)) {
+                javaBackend.addStepDefinition(annotation, glueCodeClass, method);
             }
         }
     }
