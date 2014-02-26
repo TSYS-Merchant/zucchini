@@ -66,11 +66,11 @@ import org.junit.runners.model.InitializationError;
  * {@code .feature}). Make sure that your feature file and your annotated Java file have the same name, as this class
  * will tie them together.
  * </p>
- * Additional hints can be given to Cucumber by annotating the class with {@link Options}.
+ * Additional hints can be given to Zucchini by annotating the class with {@link Options}.
  *
  * @see Options
  */
-public class Cucumber extends ParentRunner<FeatureRunner> {
+public class Zucchini extends ParentRunner<FeatureRunner> {
 
     /**
      * Our JUnit Reporter.
@@ -93,7 +93,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
      * @param clazz the class with the @RunWith annotation.
      * @throws InitializationError if we failed to initialize Cucumber
      */
-    public Cucumber(final Class clazz) throws InitializationError {
+    public Zucchini(final Class clazz) throws InitializationError {
         super(clazz);
         ClassLoader classLoader = clazz.getClassLoader();
 
@@ -247,7 +247,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
 
             return new RuntimeOptions(new Env("cucumber-jvm"), args.toArray(new String[]{}));
         } catch (NoSuchMethodException | SecurityException | IllegalAccessException | InvocationTargetException ex) {
-            Logger.getLogger(Cucumber.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Zucchini.class.getName()).log(Level.SEVERE, null, ex);
             throw new InitializationError(ex);
         }
     }
@@ -279,7 +279,7 @@ public class Cucumber extends ParentRunner<FeatureRunner> {
     }
 
     /**
-     * This annotation can be used to give additional hints to the {@link Cucumber} runner about what to run. It
+     * This annotation can be used to give additional hints to the {@link Zucchini} runner about what to run. It
      * provides similar options to the Cucumber command line used by {@link cucumber.api.cli.Main}
      */
     @Retention(RetentionPolicy.RUNTIME)

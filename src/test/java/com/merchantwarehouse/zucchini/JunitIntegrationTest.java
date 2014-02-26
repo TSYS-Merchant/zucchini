@@ -17,8 +17,8 @@ import static org.junit.Assert.assertEquals;
  *
  * @author dominicl
  */
-@RunWith(Cucumber.class)
-@Cucumber.Options(features = "DifferentlyNamedFeature.feature")
+@RunWith(Zucchini.class)
+@Zucchini.Options(features = "DifferentlyNamedFeature.feature")
 public class JunitIntegrationTest {
 
     // counters of how many times cucumber's's before/after were called. these should be 2x each.

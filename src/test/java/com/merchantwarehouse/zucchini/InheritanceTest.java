@@ -10,7 +10,7 @@ import static org.junit.Assert.assertEquals;
  *
  * @author dominicl
  */
-@RunWith(Cucumber.class)
+@RunWith(Zucchini.class)
 public class InheritanceTest extends InheritanceTestBase {
 
     @Then("^the total should be (\\d+)$")
