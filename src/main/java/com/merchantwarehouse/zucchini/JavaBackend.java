@@ -89,16 +89,21 @@ public class JavaBackend implements Backend {
     }
 
     final void addHook(final Annotation annotation, final Class clazz, final Method method) {
-        if (annotation.annotationType().equals(Before.class)) {
+        Class annotationType = annotation.annotationType();
+        if (annotationType.equals(Before.class)) {
             String[] tagExpressions = ((Before) annotation).value();
             long timeout = ((Before) annotation).timeout();
             glue.addBeforeHook(new JavaHookDefinition(clazz, method, tagExpressions, ((Before) annotation).order(),
                     timeout, objectFactory));
-        } else {
+        } else if (annotationType.equals(After.class)) {
             String[] tagExpressions = ((After) annotation).value();
             long timeout = ((After) annotation).timeout();
             glue.addAfterHook(new JavaHookDefinition(clazz, method, tagExpressions, ((After) annotation).order(),
                     timeout, objectFactory));
+        } else if (annotationType.equals(org.junit.Before.class)) {
+            glue.addBeforeHook(new JavaHookDefinition(clazz, method, new String[] {}, 10000, 0, objectFactory));
+        } else if (annotationType.equals(org.junit.After.class)) {
+            glue.addAfterHook(new JavaHookDefinition(clazz, method, new String[] {}, 10000, 0, objectFactory));
         }
     }
 }

@@ -77,7 +77,8 @@ class MethodScanner {
 
     private boolean isHookAnnotation(final Annotation annotation) {
         Class<? extends Annotation> annotationClass = annotation.annotationType();
-        return annotationClass.equals(Before.class) || annotationClass.equals(After.class);
+        return annotationClass.equals(Before.class) || annotationClass.equals(After.class)
+                || annotationClass.equals(org.junit.Before.class) || annotationClass.equals(org.junit.After.class);
     }
 
     private boolean isStepdefAnnotation(final Annotation annotation) {

@@ -3,8 +3,6 @@ package com.merchantwarehouse.zucchini;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
-import cucumber.api.java.After;
-import cucumber.api.java.Before;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -21,9 +19,13 @@ import static org.junit.Assert.assertEquals;
 @Zucchini.Options(features = "DifferentlyNamedFeature.feature")
 public class JunitIntegrationTest {
 
-    // counters of how many times cucumber's's before/after were called. these should be 2x each.
-    private static int countOfTimesBeforeWasCalled = 0;
-    private static int countOfTimesAfterWasCalled = 0;
+    // counters of how many times cucumber's before/after were called. these should be 2x each.
+    private static int countOfTimesCucumbersBeforeWasCalled = 0;
+    private static int countOfTimesCucumbersAfterWasCalled = 0;
+
+    // counters of how many times junit's before/after were called. these should be 2x each.
+    private static int countOfTimesJunitsBeforeWasCalled = 0;
+    private static int countOfTimesJunitsAfterWasCalled = 0;
 
     // counters of how many times junit's beforeclass/afterclass were called. these should be 1x each.
     private static int countOfTimesBeforeClassWasCalled = 0;
@@ -37,14 +39,24 @@ public class JunitIntegrationTest {
     private static int countOfTimesWhenWasCalled = 0;
     private static int countOfTimesThenWasCalled = 0;
 
-    @Before
-    public void before() {
-        countOfTimesBeforeWasCalled++;
+    @cucumber.api.java.Before
+    public void cucumberBefore() {
+        countOfTimesCucumbersBeforeWasCalled++;
     }
 
-    @After
-    public void after() {
-        countOfTimesAfterWasCalled++;
+    @cucumber.api.java.After
+    public void cucumberAfter() {
+        countOfTimesCucumbersAfterWasCalled++;
+    }
+
+    @org.junit.Before
+    public void junitBefore() {
+        countOfTimesJunitsBeforeWasCalled++;
+    }
+
+    @org.junit.After
+    public void junitAfter() {
+        countOfTimesJunitsAfterWasCalled++;
     }
 
     @BeforeClass
@@ -61,8 +73,11 @@ public class JunitIntegrationTest {
         assertEquals("countOfTimesBeforeClassWasCalled", 1, countOfTimesBeforeClassWasCalled);
         assertEquals("countOfTimesAfterClassWasCalled", 1, countOfTimesAfterClassWasCalled);
 
-        assertEquals("countOfTimesBeforeWasCalled", 2, countOfTimesBeforeWasCalled);
-        assertEquals("countOfTimesAfterWasCalled", 2, countOfTimesAfterWasCalled);
+        assertEquals("countOfTimesCucumbersBeforeWasCalled", 2, countOfTimesCucumbersBeforeWasCalled);
+        assertEquals("countOfTimesCucumbersAfterWasCalled", 2, countOfTimesCucumbersAfterWasCalled);
+
+        assertEquals("countOfTimesJunitsBeforeWasCalled", 2, countOfTimesJunitsBeforeWasCalled);
+        assertEquals("countOfTimesJunitsAfterWasCalled", 2, countOfTimesJunitsAfterWasCalled);
 
         assertEquals("countOfTimesGivenWasCalled", 2, countOfTimesGivenWasCalled);
         assertEquals("countOfTimesWhenWasCalled", 2, countOfTimesWhenWasCalled);

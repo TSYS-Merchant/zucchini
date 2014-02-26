@@ -47,9 +47,7 @@ import org.junit.runners.model.InitializationError;
  * upstream cousin in the following respects:</p>
  *
  * <ul>
- * <li>It allows for co-mingling of JUnit and Cucumber features. Junit's
- *
- * @org.junit.BeforeClass and @org.junit.AfterClass annotations will work just fine.
+ * <li>It allows for co-mingling of JUnit and Cucumber features. Junit's @org.junit.BeforeClass, @org.junit.AfterClass, @org.junit.Before, and @org.junit.After annotations will work just fine.
  * <li>No more useless empty Java files that only set up a Cucumber JUnit runner
  * <li>It prevents feature steps from "bleeding over" into other files
  * <li>Multiple Java files in the same package can implement the same steps
@@ -61,7 +59,7 @@ import org.junit.runners.model.InitializationError;
  * All other features should work as expected.</p>
  *
  * <p>
- * This class relies heavily on conventions. If no feature paths are specified, Cucumber will look for a
+ * This class relies heavily on conventions. If no feature paths are specified, Zucchini will look for a
  * {@code .feature} file on the classpath, using the same name as the annotated class ({@code .java} substituted by
  * {@code .feature}). Make sure that your feature file and your annotated Java file have the same name, as this class
  * will tie them together.
@@ -91,8 +89,8 @@ public class Zucchini extends ParentRunner<FeatureRunner> {
      * Constructor called by JUnit.
      *
      * @param clazz the class with the @RunWith annotation.
-     * @throws InitializationError if we failed to initialize Cucumber
-     */
+     * @throws InitializationError if we failed to initialize Zucchini
+Zucchini     */
     public Zucchini(final Class clazz) throws InitializationError {
         super(clazz);
         ClassLoader classLoader = clazz.getClassLoader();
