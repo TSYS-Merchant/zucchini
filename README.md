@@ -87,8 +87,8 @@ public class GlueClassNamedDifferentlyThanTheFeatureFileTest extends Inheritance
 
 Looking at our unit tests is always a good way to learn how to use zucchini. Please see the following for some hands-on examples:
 
-* https://github.com/merchantwarehouse/automation-framework/tree/master/automationFramework/src/test/java/com/merchantwarehouse/qa/cukes
-* https://github.com/merchantwarehouse/automation-framework/tree/master/automationFramework/src/test/resources/com/merchantwarehouse/qa/cukes
+* [Zucchini + Junit examples](src/test/java/com/merchantwarehouse/zucchini)
+* [Gherkin examples](src/test/resources/com/merchantwarehouse/zucchini)
 
 #Example output
 
