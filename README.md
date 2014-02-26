@@ -72,8 +72,8 @@ public class InheritanceTestBase {
     }
 }
 
-@RunWith(Cucumber.class)
-@Cucumber.Options(features = "DifferentlyNamedFeature.feature")
+@RunWith(Zucchini.class)
+@Zucchini.Options(features = "DifferentlyNamedFeature.feature")
 public class GlueClassNamedDifferentlyThanTheFeatureFileTest extends InheritanceTestBase {
 
     @Then("^the total should be (\\d+)$")
