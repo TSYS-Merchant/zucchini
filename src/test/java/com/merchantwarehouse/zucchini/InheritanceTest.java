@@ -13,8 +13,15 @@ import static org.junit.Assert.assertEquals;
 @RunWith(Zucchini.class)
 public class InheritanceTest extends InheritanceTestBase {
 
+    /**
+     * Counter of how many times "then" was called.
+     */
+    protected static int countOfTimesThenWasCalled = 0;
+
     @Then("^the total should be (\\d+)$")
     public void then_the_total_should_be(Integer total) {
+        countOfTimesThenWasCalled++;
+
         assertEquals("total", total, getTotal());
     }
 }

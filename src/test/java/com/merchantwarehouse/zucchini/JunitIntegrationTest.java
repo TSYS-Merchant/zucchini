@@ -1,8 +1,5 @@
 package com.merchantwarehouse.zucchini;
 
-import cucumber.api.java.en.Given;
-import cucumber.api.java.en.Then;
-import cucumber.api.java.en.When;
 import org.junit.AfterClass;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
@@ -11,13 +8,14 @@ import static org.junit.Assert.assertEquals;
 /**
  * This class tests the integration with various junit features (@BeforeClass and @AfterClass). It also has the side
  * effect of testing that the same Gherkin rules and the same Cucumber Step Definitions may appear in more than one file
- * without them conflicting.
+ * without them conflicting. It also demonstrates that object inheritance works (i.e. you can inherit step definitions)
+ * and that you can bind your test to any arbitrary Gherkin feature file(s).
  *
  * @author dominicl
  */
 @RunWith(Zucchini.class)
 @Zucchini.Options(features = "DifferentlyNamedFeature.feature")
-public class JunitIntegrationTest {
+public class JunitIntegrationTest extends InheritanceTest {
 
     // counters of how many times cucumber's before/after were called. these should be 2x each.
     private static int countOfTimesCucumbersBeforeWasCalled = 0;
@@ -31,38 +29,29 @@ public class JunitIntegrationTest {
     private static int countOfTimesBeforeClassWasCalled = 0;
     private static int countOfTimesAfterClassWasCalled = 0;
 
-    // counters of how many times given/when/then were called. given the above feature file, these should be 2x each.
-    // this is important, because there are 2 Gherkin feature files with the same rules, so the stock version of cucumber
-    // would run these rules 4x each. actually, it would fail to run at all because both this class and the InheritanceTest
-    // and GlueClassTest define identical step definitions. we'll validate the counters in @AfterClass
-    private static int countOfTimesGivenWasCalled = 0;
-    private static int countOfTimesWhenWasCalled = 0;
-    private static int countOfTimesThenWasCalled = 0;
-
     @cucumber.api.java.Before
-    public void cucumberBefore() {
+    public final void cucumberBefore() {
         countOfTimesCucumbersBeforeWasCalled++;
     }
 
     @cucumber.api.java.After
-    public void cucumberAfter() {
+    public final void cucumberAfter() {
         countOfTimesCucumbersAfterWasCalled++;
     }
 
     @org.junit.Before
-    public void junitBefore() {
+    public final void junitBefore() {
         countOfTimesJunitsBeforeWasCalled++;
     }
 
     @org.junit.After
-    public void junitAfter() {
+    public final void junitAfter() {
         countOfTimesJunitsAfterWasCalled++;
     }
 
     @BeforeClass
     public static void beforeClass() {
         countOfTimesBeforeClassWasCalled++;
-        System.out.format("Called beforeClass() %d times", countOfTimesBeforeClassWasCalled).println();
     }
 
     @AfterClass
@@ -79,23 +68,16 @@ public class JunitIntegrationTest {
         assertEquals("countOfTimesJunitsBeforeWasCalled", 2, countOfTimesJunitsBeforeWasCalled);
         assertEquals("countOfTimesJunitsAfterWasCalled", 2, countOfTimesJunitsAfterWasCalled);
 
+        /**
+         * counters of how many times given/when/then were called. given the above feature file, these should be 2x
+         * each. this is important, because there are 2 Gherkin feature files with the same rules, so the stock version
+         * of cucumber would run these rules 4x each. actually, it would fail to run at all because both this class and
+         * the InheritanceTest and GlueClassTest define identical step definitions.
+         */
         assertEquals("countOfTimesGivenWasCalled", 2, countOfTimesGivenWasCalled);
         assertEquals("countOfTimesWhenWasCalled", 2, countOfTimesWhenWasCalled);
         assertEquals("countOfTimesThenWasCalled", 2, countOfTimesThenWasCalled);
     }
 
-    @Then("^the total should be (\\d+)$")
-    public void then_the_total_should_be(Integer total) {
-        countOfTimesThenWasCalled++;
-    }
-
-    @Given("^two integers (\\d+) and (\\d+)$")
-    public final void given_two_integers(final Integer a, final Integer b) {
-        countOfTimesGivenWasCalled++;
-    }
-
-    @When("^you add them together$")
-    public final void when_you_add_them_together() {
-        countOfTimesWhenWasCalled++;
-    }
+    // the "given", "when", and "then" are all defined in the parent classes
 }
