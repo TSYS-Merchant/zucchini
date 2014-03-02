@@ -1,9 +1,10 @@
 package com.merchantwarehouse.zucchini;
 
+import cucumber.api.java.en.Then;
 import org.junit.AfterClass;
+import static org.junit.Assert.assertEquals;
 import org.junit.BeforeClass;
 import org.junit.runner.RunWith;
-import static org.junit.Assert.assertEquals;
 
 /**
  * This class tests the integration with various junit features (@BeforeClass and @AfterClass). It also has the side
@@ -15,7 +16,7 @@ import static org.junit.Assert.assertEquals;
  */
 @RunWith(Zucchini.class)
 @Zucchini.Options(features = "DifferentlyNamedFeature.feature")
-public class JunitIntegrationTest extends InheritanceTest {
+public class JunitIntegrationTest extends InheritanceTestBase {
 
     // counters of how many times cucumber's before/after were called. these should be 2x each.
     private static int countOfTimesCucumbersBeforeWasCalled = 0;
@@ -28,6 +29,11 @@ public class JunitIntegrationTest extends InheritanceTest {
     // counters of how many times junit's beforeclass/afterclass were called. these should be 1x each.
     private static int countOfTimesBeforeClassWasCalled = 0;
     private static int countOfTimesAfterClassWasCalled = 0;
+
+    /**
+     * Counter of how many times "then" was called.
+     */
+    private static int countOfTimesThenWasCalled = 0;
 
     @cucumber.api.java.Before
     public final void cucumberBefore() {
@@ -80,4 +86,10 @@ public class JunitIntegrationTest extends InheritanceTest {
     }
 
     // the "given", "when", and "then" are all defined in the parent classes
+    @Then("^the total should be (\\d+)$")
+    public void then_the_total_should_be(Integer total) {
+        countOfTimesThenWasCalled++;
+
+        assertEquals("total", total, getTotal());
+    }
 }
