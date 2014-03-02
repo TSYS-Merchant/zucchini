@@ -47,7 +47,7 @@ Feature: Adding two numbers together
          |4|5|9|
 ```
 
-And below is the Java code that implements the feature (aka the "step definitions"). The example also shows that step definitions can be inherited by child classes. The @Cucumber.Options tag is optional - by default, zucchini will look for a Gherkin feature file with the same name as your JUnit test class.
+And below is the Java code that implements the feature (aka the "step definitions"). The example also shows that step definitions can be inherited by child classes. The @Zucchini.Options tag is optional - by default, zucchini will look for a Gherkin feature file with the same name as your JUnit test class.
 
 ```java
 public class InheritanceTestBase {
