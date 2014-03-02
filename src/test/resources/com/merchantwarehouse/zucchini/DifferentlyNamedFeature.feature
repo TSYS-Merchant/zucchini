@@ -4,7 +4,7 @@
 Feature: Adding two numbers together
    As a calculator
    In order sum things
-   I want learn how to add
+   I want to learn how to add
 
    Scenario Outline: Adding numbers together
       Given two integers <a> and <b>
