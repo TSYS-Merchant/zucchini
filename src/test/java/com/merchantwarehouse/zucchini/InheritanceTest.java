@@ -6,7 +6,7 @@ import static org.junit.Assert.assertEquals;
 
 /**
  * This class tests whether we can inherit cucumber stepdefs from a parent class. It also indirectly tests that if you
- * don't specify a feature file via the @Cucumber.Options annotation, that you bind to InheritanceTest.feature
+ * don't specify a feature file via the @Zucchini.Options annotation, that you bind to InheritanceTest.feature
  *
  * @author dominicl
  */
