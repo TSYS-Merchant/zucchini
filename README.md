@@ -90,6 +90,8 @@ Looking at our unit tests is always a good way to learn how to use zucchini. Ple
 * [Zucchini + Junit examples](src/test/java/com/merchantwarehouse/zucchini)
 * [Gherkin examples](src/test/resources/com/merchantwarehouse/zucchini)
 
+The [JUnit integration test](src/test/java/com/merchantwarehouse/zucchini/JunitIntegrationTest.java) showcases all of zucchini's features, including step definition inheritance and zucchini's tight JUnit integration.
+
 #Example output
 
 Like Cucumber, zucchini integrates nicely into a variety of visualization tools, such as Jenkins. Any tool that understands Cucumber's output should understand zucchini's too. There are a number of tools to visualize Cucumber's results, including:
