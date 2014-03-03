@@ -113,7 +113,7 @@ Currently, Merchant Warehouse’s zucchini is only available as a source downloa
 We love contributions! Please send [pull requests](https://help.github.com/articles/using-pull-requests) our way. All that we ask is that you please include unit tests with all of your pull requests.
 
 #Getting help
-We also love bug reports & feature requests. You can file bugs and feature requests in our Github Issue Tracker. Please consider including the following information when you file a ticket:
+We also love bug reports & feature requests. You can file bugs and feature requests in our [Github Issue Tracker](https://github.com/merchantwarehouse/zucchini/issues). Please consider including the following information when you file a ticket:
 * What version you're using
 * What command or code you ran
 * What output you saw
