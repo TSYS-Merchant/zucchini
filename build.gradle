@@ -1,8 +1,6 @@
 buildscript {
 	repositories {
-		maven {
-			url "http://artifactory.mw.inc/repo"
-		}
+        mavenCentral()
 	}
 	dependencies {
 		classpath 'net.saliman:gradle-cobertura-plugin:2.2.2'
