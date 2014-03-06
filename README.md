@@ -7,9 +7,9 @@ Merchant Warehouse’s zucchini framework offers tighter integration with the [J
 
 Some of zucchini’s notable features include:
 * Better integration with JUnit. JUnit’s [@BeforeClass](http://junit.sourceforge.net/javadoc/org/junit/BeforeClass.html) and [@AfterClass](http://junit.sourceforge.net/javadoc/org/junit/AfterClass.html) annotations work. JUnit's [@Before](http://junit.sourceforge.net/javadoc/org/junit/Before.html) and [@After](http://junit.sourceforge.net/javadoc/org/junit/After.html) annotations also work, allowing you to choose to use them or Cucumber's equivalent annotations.
+* [Object inheritance](http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)) works with your step definitions, just like it should in Java. You can define your step definitions in a base class and inherit them in child classes.
 * Tight coupling between [Gherkin](https://github.com/cucumber/cucumber/wiki/Gherkin) feature files and your JUnit test classes. Bind your JUnit test class to one or more feature files as you please. No longer do you have to worry about Cucumber’s dreaded “duplicate step definitions found” error.
 * Also, with zucchini, you can bind any arbitrary JUnit class to any Gherkin feature file(s). This makes it easy to reuse & share test cases. This is extremely helpful when using [IoC containers](http://en.wikipedia.org/wiki/Inversion_of_control), such as [Spring](http://spring.io/).
-* [Object inheritance](http://en.wikipedia.org/wiki/Inheritance_(object-oriented_programming)) works with your step definitions, just like it should in Java. You can define your step definitions in a base class and inherit them in child classes.
 * There's no need for empty JUnit test runner classes. Declare your @Zucchini annotation right on your step definition files.
 * Get HTML and JSON outputs by default, for easy integration into your [CI systems](http://en.wikipedia.org/wiki/Continuous_integration), such as [Jenkins](http://jenkins-ci.org/).
 
