@@ -47,7 +47,8 @@ import org.junit.runners.model.InitializationError;
  * upstream cousin in the following respects:</p>
  *
  * <ul>
- * <li>It allows for co-mingling of JUnit and Cucumber features. Junit's @org.junit.BeforeClass, @org.junit.AfterClass, @org.junit.Before, and @org.junit.After annotations will work just fine.
+ * <li>It allows for co-mingling of JUnit and Cucumber features. Junit's @org.junit.BeforeClass, @org.junit.AfterClass,
+ * @org.junit.Before, and @org.junit.After annotations will work just fine.
  * <li>No more useless empty Java files that only set up a Cucumber JUnit runner
  * <li>It prevents feature steps from "bleeding over" into other files
  * <li>Multiple Java files in the same package can implement the same steps
@@ -89,8 +90,8 @@ public class Zucchini extends ParentRunner<FeatureRunner> {
      * Constructor called by JUnit.
      *
      * @param clazz the class with the @RunWith annotation.
-     * @throws InitializationError if we failed to initialize Zucchini
-Zucchini     */
+     * @throws InitializationError if we failed to initialize Zucchini Zucchini
+     */
     public Zucchini(final Class clazz) throws InitializationError {
         super(clazz);
         ClassLoader classLoader = clazz.getClassLoader();
@@ -264,6 +265,19 @@ Zucchini     */
      */
     private void applyDefaultFormatting(final Class clazz,
             final List<String> args) {
+        int formatIndex = args.indexOf(CUCUMBER_FORMAT_COMMAND_LINE_ARG);
+        int lastFormatIndex = args.lastIndexOf(CUCUMBER_FORMAT_COMMAND_LINE_ARG);
+
+        // there is a single --format argument
+        if (formatIndex > -1 && formatIndex == lastFormatIndex) {
+            // check to see if Cucumber was "helpful" and appended a "null" formatter for us...
+            if ("null".equalsIgnoreCase(args.get(formatIndex + 1))) {
+                // if so, remove it
+                args.remove(formatIndex + 1);
+                args.remove(formatIndex);
+            }
+        }
+
         if (!args.contains(CUCUMBER_FORMAT_COMMAND_LINE_ARG)) {
             // apply the default formatting only if no formatting options were explicitly requested
             String className = clazz.getName();
