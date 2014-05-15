@@ -14,9 +14,7 @@ group = 'com.merchantwarehouse.qa'
 version = '0.1.0-SNAPSHOT'
 
 repositories {
-	maven {
-		url "http://artifactory.mw.inc/repo"
-	}
+	mavenCentral()
 }
 
 dependencies {
