@@ -9,6 +9,7 @@ buildscript {
 
 apply plugin: 'cobertura'
 apply plugin: 'java'
+apply plugin: 'maven'
 
 group = 'com.merchantwarehouse.qa'
 version = '0.1.0-SNAPSHOT'
